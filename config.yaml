@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8011
 
 database:
   dsn: root:qq123456@tcp(127.0.0.1:3306)/wallet_test?charset=utf8mb4&parseTime=True&loc=Local

@@ -14,27 +14,26 @@ import (
 )
 
 func main() {
-	// 初始化配置和资源
-	config.InitConfig()
-	config.InitLogger()
-	config.InitMySQL()
-	config.InitRedis()
-	config.InitCron()
+	// 初始化资源
+	initResources()
 
 	// 创建 Gin 引擎
 	r := handler.SetupRouter()
 
+	// 从配置中读取端口
+	port := fmt.Sprintf(":%d", config.Cfg.Server.Port)
+
 	// 启动服务器
 	server := &http.Server{
-		Addr:    ":8011",
+		Addr:    port,
 		Handler: r,
 	}
 
 	// 在单独的 Goroutine 中启动 HTTP 服务
 	go func() {
-		fmt.Println("Starting server on :8011")
+		global.Logger.Infof("Starting server on %s", port)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			fmt.Printf("Server error: %s\n", err)
+			global.Logger.Fatalf("Server error: %s", err)
 		}
 	}()
 
@@ -43,15 +42,32 @@ func main() {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit // 阻塞，直到接收到信号
 
-	fmt.Println("Shutting down server...")
+	global.Logger.Info("Shutting down server...")
 
+	// 优雅关闭服务器
+	shutdownServer(server)
+
+	global.Logger.Info("Server exiting")
+}
+
+// initResources 初始化配置和资源
+func initResources() {
+	config.InitConfig()
+	config.InitLogger()
+	config.InitMySQL()
+	config.InitRedis()
+	config.InitCron()
+}
+
+// shutdownServer 优雅关闭服务器和资源
+func shutdownServer(server *http.Server) {
 	// 创建上下文，设置超时时间为 5 秒
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
 	// 优雅关闭 HTTP 服务器
 	if err := server.Shutdown(ctx); err != nil {
-		fmt.Printf("Server forced to shutdown: %s\n", err)
+		global.Logger.Errorf("Server forced to shutdown: %s", err)
 	}
 
 	// 关闭其他资源
@@ -60,15 +76,13 @@ func main() {
 	}
 	if global.RedisClient != nil {
 		if err := global.RedisClient.Close(); err != nil {
-			fmt.Printf("Failed to close Redis: %s\n", err)
+			global.Logger.Errorf("Failed to close Redis: %s", err)
 		}
 	}
 	if config.DB != nil {
 		sqlDB, _ := config.DB.DB()
 		if err := sqlDB.Close(); err != nil {
-			fmt.Printf("Failed to close MySQL: %s\n", err)
+			global.Logger.Errorf("Failed to close MySQL: %s", err)
 		}
 	}
-
-	fmt.Println("Server exiting")
 }
