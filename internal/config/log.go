@@ -7,5 +7,5 @@ import (
 
 func InitLogger() {
 	logger, _ := zap.NewProduction()
-	global.Logger = logger
+	global.Logger = logger.Sugar()
 }

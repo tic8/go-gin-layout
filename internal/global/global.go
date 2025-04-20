@@ -12,6 +12,6 @@ var (
 	DB          *gorm.DB
 	RedisClient *redis.Client
 	Cron        *cron.Cron
-	Logger      *zap.Logger
+	Logger      *zap.SugaredLogger
 	Ctx         = context.Background()
 )

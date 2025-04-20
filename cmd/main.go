@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"go-gin-layout/internal/config"
 	"go-gin-layout/internal/global"
 	"go-gin-layout/internal/handler"
@@ -23,10 +22,7 @@ func main() {
 	config.InitCron()
 
 	// 创建 Gin 引擎
-	r := gin.Default()
-	handler.RegisterRoutes(r)
-	handler.RegisterSwagger(r)
-	handler.RegisterMetrics(r)
+	r := handler.SetupRouter()
 
 	// 启动服务器
 	server := &http.Server{
