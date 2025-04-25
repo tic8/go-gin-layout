@@ -44,7 +44,7 @@ func main() {
 
 	global.Logger.Info("Shutting down server...")
 
-	// 优雅关闭服务器
+	// 优雅关闭服务
 	shutdownServer(server)
 
 	global.Logger.Info("Server exiting")
@@ -52,11 +52,18 @@ func main() {
 
 // initResources 初始化配置和资源
 func initResources() {
+	// 初始化全局上下文和取消函数
+	ctx, cancel := context.WithCancel(context.Background())
+	global.Ctx = ctx
+	global.Cancel = cancel
+
+	// 初始化配置、日志、数据库、Redis、定时任务和守护进程
 	config.InitConfig()
 	config.InitLogger()
 	config.InitMySQL()
 	config.InitRedis()
 	config.InitCron()
+	config.InitDaemon()
 }
 
 // shutdownServer 优雅关闭服务器和资源
@@ -64,6 +71,11 @@ func shutdownServer(server *http.Server) {
 	// 创建上下文，设置超时时间为 5 秒
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
+
+	// 取消InitDaemon的执行
+	if global.Cancel != nil {
+		global.Cancel()
+	}
 
 	// 优雅关闭 HTTP 服务器
 	if err := server.Shutdown(ctx); err != nil {

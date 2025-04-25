@@ -10,18 +10,18 @@ var Cfg *ConfigStruct
 
 type ConfigStruct struct {
 	Redis struct {
-		Addr     string `mapstructure:"addr"`
-		Password string `mapstructure:"password"`
-		DB       int    `mapstructure:"db"`
-	} `mapstructure:"redis"`
+		Addr     string `mapstructure:"addr" json:"addr" yaml:"addr"`
+		Password string `mapstructure:"password" json:"password" yaml:"password"`
+		DB       int    `mapstructure:"db" json:"db" yaml:"db"`
+	} `mapstructure:"redis" json:"redis" yaml:"redis"`
 
 	Database struct {
-		DSN string `mapstructure:"dsn"`
-	} `mapstructure:"database"`
+		DSN string `mapstructure:"dsn" json:"dsn" yaml:"dsn"`
+	} `mapstructure:"database" json:"database" yaml:"database"`
 
 	Server struct {
-		Port int `mapstructure:"port"`
-	} `mapstructure:"server"`
+		Port int `mapstructure:"port" json:"port" yaml:"port"`
+	} `mapstructure:"server" json:"server" yaml:"server"`
 }
 
 func InitConfig() {
