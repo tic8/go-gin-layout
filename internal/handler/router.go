@@ -10,6 +10,9 @@ func SetupRouter() *gin.Engine {
 	// 创建 Gin 引擎
 	r := gin.New()
 
+	RegisterMetrics(r)
+	RegisterSwagger(r)
+
 	// 注册全局中间件
 	r.Use(gin.Logger())   // 日志中间件
 	r.Use(gin.Recovery()) // 恢复中间件，防止程序崩溃
@@ -17,8 +20,6 @@ func SetupRouter() *gin.Engine {
 
 	// 注册路由
 	RegisterRoutes(r)
-	RegisterSwagger(r)
-	RegisterMetrics(r)
 
 	return r
 }
