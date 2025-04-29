@@ -5,13 +5,11 @@ import (
 	"gorm.io/gorm"
 )
 
-var DB *gorm.DB
-
-func InitMySQL() {
+func InitMySQL() *gorm.DB {
 	dsn := Config.GetString("database.dsn")
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		panic("failed to connect database")
 	}
-	DB = db
+	return db
 }

@@ -59,9 +59,9 @@ func initResources() {
 
 	// 初始化配置、日志、数据库、Redis、定时任务和守护进程
 	config.InitConfig()
-	config.InitLogger()
-	config.InitMySQL()
-	config.InitRedis()
+	global.Logger = config.InitLogger()
+	global.DB = config.InitMySQL()
+	global.RedisClient = config.InitRedis()
 	config.InitCron()
 	config.InitDaemon()
 }
@@ -91,8 +91,8 @@ func shutdownServer(server *http.Server) {
 			global.Logger.Errorf("Failed to close Redis: %s", err)
 		}
 	}
-	if config.DB != nil {
-		sqlDB, _ := config.DB.DB()
+	if global.DB != nil {
+		sqlDB, _ := global.DB.DB()
 		if err := sqlDB.Close(); err != nil {
 			global.Logger.Errorf("Failed to close MySQL: %s", err)
 		}

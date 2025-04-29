@@ -1,11 +1,10 @@
 package config
 
 import (
-	"go-gin-layout/internal/global"
 	"go.uber.org/zap"
 )
 
-func InitLogger() {
+func InitLogger() *zap.SugaredLogger {
 	logger, _ := zap.NewProduction()
-	global.Logger = logger.Sugar()
+	return logger.Sugar()
 }
