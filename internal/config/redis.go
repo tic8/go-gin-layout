@@ -6,8 +6,8 @@ import (
 
 func InitRedis() *redis.Client {
 	return redis.NewClient(&redis.Options{
-		Addr:     Config.GetString("redis.addr"),
-		Password: Config.GetString("redis.password"),
-		DB:       Config.GetInt("redis.db"),
+		Addr:     Cfg.Redis.Addr,
+		Password: Cfg.Redis.Password,
+		DB:       Cfg.Redis.DB,
 	})
 }

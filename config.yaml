@@ -1,8 +1,12 @@
+env: dev
+debug: true
+
 server:
   port: 8011
 
 database:
   dsn: root:qq123456@tcp(127.0.0.1:3306)/wallet_test?charset=utf8mb4&parseTime=True&loc=Local
+  debug: true
 
 redis:
   addr: localhost:6379

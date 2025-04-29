@@ -21,17 +21,17 @@ func main() {
 	r := handler.SetupRouter()
 
 	// 从配置中读取端口
-	port := fmt.Sprintf(":%d", config.Cfg.Server.Port)
+	listen := fmt.Sprintf("%s:%d", config.Cfg.Server.Host, config.Cfg.Server.Port)
 
 	// 启动服务器
 	server := &http.Server{
-		Addr:    port,
+		Addr:    listen,
 		Handler: r,
 	}
 
 	// 在单独的 Goroutine 中启动 HTTP 服务
 	go func() {
-		global.Logger.Infof("Starting server on %s", port)
+		global.Logger.Infof("Starting server on %s", listen)
 		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			global.Logger.Fatalf("Server error: %s", err)
 		}
