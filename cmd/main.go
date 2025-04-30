@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"go-gin-layout/internal/config"
+	"go-gin-layout/internal/errcode"
 	"go-gin-layout/internal/global"
 	"go-gin-layout/internal/handler"
 	"net/http"
@@ -64,6 +65,8 @@ func initResources() {
 	global.RedisClient = config.InitRedis()
 	config.InitCron()
 	config.InitDaemon()
+	// 初始化错误码
+	errcode.InitErrors()
 }
 
 // shutdownServer 优雅关闭服务器和资源

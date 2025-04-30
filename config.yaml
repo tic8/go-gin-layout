@@ -12,6 +12,7 @@ redis:
   addr: localhost:6379
   password: ""
   db: 0
+  debug: true
 
 jwt:
   secret: mysecret

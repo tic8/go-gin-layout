@@ -21,6 +21,7 @@ func RegisterUserRoutes(r *gin.RouterGroup) {
 
 func (u *UserRouter) GetUserInfoHandler(c *gin.Context) {
 	userInfo := u.UserService.GetUserInfo(c)
+	//global.RedisClient.Set(c, "user_info", userInfo, 0)
 	response.Success(c, userInfo)
 }
 
