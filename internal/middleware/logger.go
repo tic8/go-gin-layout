@@ -8,7 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-var TraceIDKey = "trace-id"
+var TraceIDKey = "trace_id"
 
 func Logger() gin.HandlerFunc {
 	conf := logging.GinLoggerConfig{
@@ -25,8 +25,10 @@ func Logger() gin.HandlerFunc {
 			if traceID, ok := ctx.Value(TraceIDKey).(string); ok {
 				return traceID
 			}
-			// 如果上下文中没有 trace_id，则生成一个新的
-			return uuid.New().String()
+			traceID := uuid.New().String()
+			// 将 trace_id 设置到上下文中
+			ctx = context.WithValue(ctx, TraceIDKey, traceID)
+			return traceID
 		},
 	}
 	return logging.GinLoggerWithConfig(conf)
