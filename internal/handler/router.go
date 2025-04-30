@@ -19,6 +19,7 @@ func SetupRouter() *gin.Engine {
 	r.Use(gin.Recovery())                 // 恢复中间件，防止程序崩溃
 	r.Use(cors.Default())                 // 跨域中间件
 	r.Use(middleware.TraceIDMiddleware()) // 自定义 trace_id 中间件
+	r.Use(middleware.Timeout())
 
 	// 注册路由
 	RegisterRoutes(r)
