@@ -6,13 +6,18 @@ toolchain go1.23.7
 
 require (
 	github.com/axiaoxin-com/logging v1.2.20
+	github.com/dromara/carbon/v2 v2.6.4
 	github.com/gin-contrib/cors v1.7.5
+	github.com/gin-contrib/timeout v1.0.2
 	github.com/gin-gonic/gin v1.10.0
+	github.com/go-lark/lark v1.16.0
 	github.com/golang-jwt/jwt/v4 v4.4.3
 	github.com/google/uuid v1.1.2
+	github.com/gookit/validate v1.5.4
 	github.com/mcuadros/go-gin-prometheus v0.1.0
 	github.com/redis/go-redis/v9 v9.7.3
 	github.com/robfig/cron/v3 v3.0.1
+	github.com/spf13/cast v1.7.1
 	github.com/spf13/viper v1.20.1
 	github.com/swaggo/files v1.0.1
 	github.com/swaggo/gin-swagger v1.5.1
@@ -38,7 +43,6 @@ require (
 	github.com/gabriel-vasile/mimetype v1.4.9 // indirect
 	github.com/getsentry/sentry-go v0.32.0 // indirect
 	github.com/gin-contrib/sse v1.1.0 // indirect
-	github.com/gin-contrib/timeout v1.0.2 // indirect
 	github.com/go-openapi/jsonpointer v0.19.5 // indirect
 	github.com/go-openapi/jsonreference v0.19.6 // indirect
 	github.com/go-openapi/spec v0.20.4 // indirect
@@ -52,7 +56,6 @@ require (
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/gookit/filter v1.2.2 // indirect
 	github.com/gookit/goutil v0.6.18 // indirect
-	github.com/gookit/validate v1.5.4 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
@@ -78,7 +81,6 @@ require (
 	github.com/sourcegraph/conc v0.3.0 // indirect
 	github.com/speps/go-hashids v2.0.0+incompatible // indirect
 	github.com/spf13/afero v1.14.0 // indirect
-	github.com/spf13/cast v1.7.1 // indirect
 	github.com/spf13/pflag v1.0.6 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/swaggo/swag v1.8.1 // indirect

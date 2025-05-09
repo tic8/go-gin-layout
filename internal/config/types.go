@@ -12,6 +12,7 @@ type AppConfig struct {
 	Server   ServerConfig   `json:"server" yaml:"server"`
 	Redis    RedisConfig    `json:"redis" yaml:"redis"`
 	Database DatabaseConfig `json:"database" yaml:"database"`
+	Lark     LarkConfig     `json:"lark" yaml:"lark"`
 }
 
 type RedisConfig struct {
@@ -29,4 +30,8 @@ type DatabaseConfig struct {
 type ServerConfig struct {
 	Host string `json:"host" yaml:"host"`
 	Port int    `json:"port" yaml:"port"`
+}
+
+type LarkConfig struct {
+	WebhookURL string `json:"webhookURL" yaml:"webhookURL"`
 }

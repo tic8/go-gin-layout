@@ -18,3 +18,6 @@ redis:
 jwt:
   secret: mysecret
   expire: 3600
+
+lark:
+  webhookURL: "https://open.feishu.cn/open-apis/bot/v2/hook/your-webhook-url"

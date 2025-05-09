@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"go-gin-layout/internal/alert"
 	"go-gin-layout/internal/config"
 	"go-gin-layout/internal/errcode"
 	"go-gin-layout/internal/global"
@@ -61,6 +62,7 @@ func initResources() {
 	// 初始化配置、日志、数据库、Redis、定时任务和守护进程
 	config.InitConfig()
 	global.Logger = config.InitLogger(config.Cfg.LogPath)
+	alert.InitLark(config.Cfg.Lark.WebhookURL)
 	global.DB = config.InitMySQL()
 	global.RedisClient = config.InitRedis()
 	global.ZapLogger = config.ZapLogger
