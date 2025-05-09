@@ -60,9 +60,10 @@ func initResources() {
 
 	// 初始化配置、日志、数据库、Redis、定时任务和守护进程
 	config.InitConfig()
-	global.Logger = config.InitLogger()
+	global.Logger = config.InitLogger(config.Cfg.LogPath)
 	global.DB = config.InitMySQL()
 	global.RedisClient = config.InitRedis()
+	global.ZapLogger = config.ZapLogger
 	config.InitCron()
 	config.InitDaemon()
 	// 初始化错误码

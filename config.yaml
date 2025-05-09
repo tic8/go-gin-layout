@@ -1,5 +1,6 @@
 env: dev
 debug: true
+logPath: "/Users/nova/works/go-gin-layout/test/"
 
 server:
   port: 8011

@@ -8,6 +8,7 @@ var Cfg *AppConfig
 type AppConfig struct {
 	Env      string         `json:"env" yaml:"env"`
 	Debug    bool           `json:"debug" yaml:"debug"`
+	LogPath  string         `json:"logPath" yaml:"logPath"`
 	Server   ServerConfig   `json:"server" yaml:"server"`
 	Redis    RedisConfig    `json:"redis" yaml:"redis"`
 	Database DatabaseConfig `json:"database" yaml:"database"`

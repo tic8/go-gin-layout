@@ -6,6 +6,7 @@ import (
 	"github.com/axiaoxin-com/logging"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"go-gin-layout/internal/config"
 )
 
 var TraceIDKey = "trace_id"
@@ -31,5 +32,8 @@ func Logger() gin.HandlerFunc {
 			return traceID
 		},
 	}
+
+	logging.ReplaceLogger(config.ZapLogger)
+
 	return logging.GinLoggerWithConfig(conf)
 }

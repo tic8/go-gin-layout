@@ -13,6 +13,7 @@ var (
 	DB          *gorm.DB
 	RedisClient *redis.Client
 	Cron        *cron.Cron
+	ZapLogger   *zap.Logger
 	Logger      *zap.SugaredLogger
 	Ctx         context.Context
 	Cancel      context.CancelFunc

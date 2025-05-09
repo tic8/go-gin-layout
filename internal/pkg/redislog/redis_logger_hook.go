@@ -3,6 +3,7 @@ package redislog
 import (
 	"context"
 	"github.com/spf13/cast"
+	"go-gin-layout/internal/global"
 	"time"
 
 	"github.com/axiaoxin-com/logging"
@@ -30,6 +31,7 @@ func (h RedisLoggerHook) ProcessHook(existing redis.ProcessHook) redis.ProcessHo
 
 		ctxLogger := logging.CtxLogger(ctx)
 		ctx, ctxLogger = logging.NewCtxLogger(ctx, logging.CloneLogger(LoggerKey), cast.ToString(traceId))
+		logging.ReplaceLogger(global.ZapLogger)
 
 		err := existing(ctx, cmd) // 执行原来的 Hook（或核心命令）
 
@@ -52,7 +54,7 @@ func (h RedisLoggerHook) ProcessPipelineHook(existing redis.ProcessPipelineHook)
 
 		ctxLogger := logging.CtxLogger(ctx)
 		ctx, ctxLogger = logging.NewCtxLogger(ctx, logging.CloneLogger(LoggerKey), cast.ToString(traceId))
-
+		logging.ReplaceLogger(global.ZapLogger)
 		err := existing(ctx, cmds)
 
 		var allCmds string
